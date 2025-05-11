@@ -1,8 +1,8 @@
 ---
 name: CI using maven and Jenkins
 on:
-  push: null
-  workflow_dispatch: null
+ # push: null
+  #workflow_dispatch: null
 jobs:
   buildJob:
     runs-on: ubuntu-latest
