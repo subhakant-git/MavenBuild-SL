@@ -1,5 +1,5 @@
 name: Run SCA scan with Snyk
-on: push
+on: workflow_dispatch
 jobs:
   Snykscan:
     runs-on: ubuntu-latest
