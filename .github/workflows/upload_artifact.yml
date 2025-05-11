@@ -1,6 +1,6 @@
 name: CI using maven and Jenkins 
 on: 
- push:  # run the workflow on every commit
+# push:  # run the workflow on every commit
  workflow_dispatch: # run the workflow maually
 jobs:
   buildJob:
