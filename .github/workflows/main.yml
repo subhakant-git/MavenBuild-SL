@@ -33,10 +33,10 @@ jobs:
     - name: Connect to Lab machine and trigger a Jenkins job 
       uses: cross-the-world/ssh-scp-ssh-pipelines@latest
       with:
-        host: '43.205.118.149'
+        host: '3.110.195.237'
         user: 'labuser'
         pass: 'Nuvelabs123$'
         port: 22
         connect_timeout: 10s
         first_ssh: |
-          curl -l -u admin:Root123$ http://localhost:8080/job/GithubActions_Job/build?token=token1
+          sudo curl -l -u admin:Root123$ http://localhost:8080/job/GithubActions_Job/build?token=token1
