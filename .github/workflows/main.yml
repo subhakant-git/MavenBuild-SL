@@ -2,7 +2,7 @@
 name: CI using maven and Jenkins
 on:
  # push: null
-  #workflow_dispatch: null
+ workflow_dispatch
 jobs:
   buildJob:
     runs-on: ubuntu-latest
@@ -27,7 +27,7 @@ jobs:
       - name: Connect to LAB and run curl command to trigger a Job
         uses: cross-the-world/ssh-scp-ssh-pipelines@latest
         with:
-          host: 13.232.109.79
+          host: 3.110.195.237
           user: labuser
           pass: Nuvelabs123$
           port: 22
