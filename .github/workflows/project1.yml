@@ -1,4 +1,4 @@
-name: Jenkins-EndProject1-CI 
+name: Jenkins-EndProject1-CICD 
 on: 
   #push: # run when there is commit to repo 
   workflow_dispatch: # run manually 
@@ -9,10 +9,34 @@ jobs:
       - name: Clone the repo on ubuntu server 
         uses: actions/checkout@v4 
       - name: Install Java and maven on ubuntu server
-        uses: actions/setup-java@v4 
-        with: 
+        uses: actions/setup-java@v4
+        with:
           distribution: 'temurin' 
           java-version: '11' 
           cache: 'maven' 
-      - name: Build the code 
+      - name: Build the code
         run: mvn package 
+      - name: connect to LAb and deploy code on tomcat9
+        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+        with: 
+          host: ${{secrets.HOST}} 
+          user: ${{secrets.USERNAME}} 
+          pass: ${{secrets.PASSWORD}} 
+          port: ${{secrets.PORT}} 
+          connect_timeout: 10s 
+          first_ssh: | 
+           sudo chmod 777 /var/lib/tomcat9/webapps
+          scp: | 
+           './target/*war' => /var/lib/tomcat9/webapps 
+          last_ssh: | 
+           sudo systemctl restart tomcat9 
+      - name: Connect to Lab machine and trigger a Jenkins job
+        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+        with: 
+          host: ${{secrets.HOST}} 
+          user: ${{secrets.USERNAME}} 
+          pass: ${{secrets.PASSWORD}} 
+          port: ${{secrets.PORT}} 
+          connect_timeout: 10s 
+          first_ssh: | 
+           curl -l -u admin:Root123$ http://localhost:8080/job/JenkinsEndProject1/build?token=tomcatDeploy 
